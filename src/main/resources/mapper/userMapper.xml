@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<!-- 这里填写对应的Dao文件所在的路径 -->
-    <mapper namespace=" com.example.demo.dao.UserDao">
-    <!-- 填写数据库里实例Person对应的表的表名 -->
-    <!-- 这里是作为一个变量使用 -->
-    <sql id="table">user</sql>
+<!--&lt;!&ndash; 这里填写对应的Dao文件所在的路径 &ndash;&gt;-->
+<!--    <mapper namespace=" com.example.demo.dao.UserDao">-->
+<!--    &lt;!&ndash; 填写数据库里实例Person对应的表的表名 &ndash;&gt;-->
+<!--    &lt;!&ndash; 这里是作为一个变量使用 &ndash;&gt;-->
+<!--    <sql id="table">user</sql>-->
 
-    <!-- id属性填写Dao文件里的函数名称 xxType是参数或是结果的类型根据情况填写 -->
-    <!-- 查询所有   -->
-<!--    <select id="getAll" resultType="java.util.List">
-        SELECT
-        *
-        FROM
-        <include refid="table" />
-    </select>-->
+<!--    &lt;!&ndash; id属性填写Dao文件里的函数名称 xxType是参数或是结果的类型根据情况填写 &ndash;&gt;-->
+<!--    &lt;!&ndash; 查询所有   &ndash;&gt;-->
+<!--    <select id="getAll" resultType="java.util.List">-->
+<!--        SELECT-->
+<!--        *-->
+<!--        FROM-->
+<!--        <include refid="table" />-->
+<!--    </select>-->
 
 
 <!--    &lt;!&ndash; 根据id查询 &ndash;&gt;-->
@@ -54,4 +54,18 @@
 <!--        WHERE-->
 <!--        id = #{id}-->
 <!--    </delete>-->
+<!--</mapper>-->
+
+
+
+<mapper namespace="com.example.demo.dao.UserMapper">
+    <!--注意上面的namespace一定要修改-->
+    <!--以下是新增的方法-->
+    <select id="getAll" resultType="com.example.demo.model.UserModel">
+        select * from user;
+    </select>
+
+    <select id="login" resultType="com.example.demo.model.UserModel">
+        SELECT * FROM user WHERE username = #{userName} and password = #{passWrod}
+    </select>
 </mapper>

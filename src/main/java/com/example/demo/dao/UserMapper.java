@@ -1,20 +1,25 @@
 package com.example.demo.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.example.demo.model.user;
+import com.example.demo.model.UserModel;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 
 @Mapper
-public interface UserDao extends BaseMapper<user> {
+// extends BaseMapper<user>
+public interface UserMapper extends BaseMapper<UserModel> {
+
+    List<UserModel> getAll();
+
+    UserModel login(String userName, String passWrod);
     /*
   查所有
   return List<Person>
-   */
-    /*List<user> getAll();*/
 
- /*   *//*
+    List<user> getAll();
+
+  /*
     根据ID查询
     {id} 要查询人员的 id
      *//*

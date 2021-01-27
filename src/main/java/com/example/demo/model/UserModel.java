@@ -1,7 +1,7 @@
 package com.example.demo.model;
 
 
-public class user {
+public class UserModel {
 
     private  int id;
 
@@ -52,6 +52,4 @@ public class user {
     public void setLocked(String locked) {
         this.locked = locked;
     }
-
-
 }

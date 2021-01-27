@@ -13,6 +13,8 @@ public interface UserMapper extends BaseMapper<UserModel> {
     List<UserModel> getAll();
 
     UserModel login(String userName, String passWrod);
+
+    UserModel getAdminByUsername(String username);
     /*
   查所有
   return List<Person>

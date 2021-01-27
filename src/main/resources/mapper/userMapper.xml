@@ -68,4 +68,10 @@
     <select id="login" resultType="com.example.demo.model.UserModel">
         SELECT * FROM user WHERE username = #{userName} and password = #{passWrod}
     </select>
+
+    <select id="getAdminByUsername" resultType="com.example.demo.model.UserModel">
+        SELECT * FROM user WHERE username = #{userName}
+    </select>
+
+
 </mapper>

@@ -27,6 +27,11 @@ public class userService {
         return user;
     }
 
+    public UserModel getAdminByUsername(String username) {
+        UserModel user = userDao.getAdminByUsername(username);
+        return user;
+    }
+
 
 //    public user getPersonByID(int id){
 //        return userDao.getPersonByID(id);

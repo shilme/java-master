@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.example.demo.dao.UmsAdminMapper">
+    <!--注意上面的namespace一定要修改-->
+    <!--以下是新增的方法-->
+    <select id="selectByExample" parameterType="com.example.demo.model.UmsAdminExample">
+        select * from ums_admin
+    </select>
+</mapper>
+

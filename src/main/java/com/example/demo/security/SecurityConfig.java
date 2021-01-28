@@ -1,6 +1,8 @@
 package com.example.demo.security;
 
+import com.example.demo.model.AdminModel;
 import com.example.demo.model.UserModel;
+import com.example.demo.service.AdminService;
 import com.example.demo.service.userService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -24,14 +26,13 @@ import java.util.List;
 
 /**
  * SpringSecurity的配置
- * Created by macro on 2018/4/26.
  */
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled=true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
-    private userService adminService;
+    private AdminService adminService;
     @Autowired
     private RestfulAccessDeniedHandler restfulAccessDeniedHandler;
     @Autowired
@@ -89,7 +90,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public UserDetailsService userDetailsService() {
         //获取登录用户信息
         return username -> {
-            UserModel admin = adminService.getAdminByUsername(username);
+            AdminModel admin = adminService.getAdminByUsername(username);
             if (admin != null) {
 //                List<UmsPermission> permissionList = adminService.getPermissionList(admin.getId());
 //                return new AdminUserDetails(admin, permissionList);

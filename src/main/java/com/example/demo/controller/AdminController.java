@@ -2,10 +2,10 @@ package com.example.demo.controller;
 
 
 import com.example.demo.common.CommonResult;
-import com.example.demo.dao.UmsAdmin;
-import com.example.demo.model.UmsAdminLoginParam;
-import com.example.demo.model.UmsPermission;
-import com.example.demo.service.UmsAdminService;
+import com.example.demo.model.AdminModel;
+import com.example.demo.model.AdminLoginParamModel;
+import com.example.demo.model.PermissionModel;
+import com.example.demo.service.AdminService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,16 +19,15 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 后台用户管理
- * Created by macro on 2018/4/26.
+ * 用户管理
  */
 
 @Controller
-@Api(tags = "UmsAdminController", description = "后台用户管理")
+@Api(tags = "AdminController", description = "用户管理")
 @RequestMapping("/admin")
-public class UmsAdminController {
+public class AdminController {
     @Autowired
-    private UmsAdminService adminService;
+    private AdminService adminService;
     @Value("${jwt.tokenHeader}")
     private String tokenHeader;
     @Value("${jwt.tokenHead}")
@@ -37,8 +36,8 @@ public class UmsAdminController {
     @ApiOperation(value = "用户注册")
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult<UmsAdmin> register(@RequestBody UmsAdmin umsAdminParam, BindingResult result) {
-        UmsAdmin umsAdmin = adminService.register(umsAdminParam);
+    public CommonResult<AdminModel> register(@RequestBody AdminModel adminModel, BindingResult result) {
+        AdminModel umsAdmin = adminService.register(adminModel);
         if (umsAdmin == null) {
             CommonResult.failed();
         }
@@ -48,8 +47,8 @@ public class UmsAdminController {
     @ApiOperation(value = "登录以后返回token")
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult login(@RequestBody UmsAdminLoginParam umsAdminLoginParam, BindingResult result) {
-        String token = adminService.login(umsAdminLoginParam.getUsername(), umsAdminLoginParam.getPassword());
+    public CommonResult login(@RequestBody AdminLoginParamModel adminLoginParamModel, BindingResult result) {
+        String token = adminService.login(adminLoginParamModel.getUsername(), adminLoginParamModel.getPassword());
         if (token == null) {
             return CommonResult.validateFailed("用户名或密码错误");
         }
@@ -62,8 +61,8 @@ public class UmsAdminController {
     @ApiOperation("获取用户所有权限（包括+-权限）")
     @RequestMapping(value = "/permission/{adminId}", method = RequestMethod.GET)
     @ResponseBody
-    public CommonResult<List<UmsPermission>> getPermissionList(@PathVariable Long adminId) {
-        List<UmsPermission> permissionList = adminService.getPermissionList(adminId);
+    public CommonResult<List<PermissionModel>> getPermissionList(@PathVariable Long adminId) {
+        List<PermissionModel> permissionList = adminService.getPermissionList(adminId);
         return CommonResult.success(permissionList);
     }
 }

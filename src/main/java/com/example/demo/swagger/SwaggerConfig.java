@@ -83,8 +83,7 @@ public class SwaggerConfig {
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
                 .title("SwaggerUI演示")
-                .description("mall-tiny")
-                .contact("macro")
+                .description("Demo API Doc")
                 .version("1.0")
                 .build();
     }

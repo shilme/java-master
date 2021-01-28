@@ -1,13 +1,12 @@
 package com.example.demo.service.Impl;
 
 
-import com.example.demo.dao.UmsAdmin;
-import com.example.demo.dao.UmsAdminMapper;
-import com.example.demo.dao.UmsAdminRoleRelationMapper;
+import com.example.demo.model.AdminModel;
+import com.example.demo.dao.AdminMapper;
+import com.example.demo.dao.AdminRoleRelationMapper;
 import com.example.demo.jwt.JwtTokenUtil;
-import com.example.demo.model.UmsAdminExample;
-import com.example.demo.model.UmsPermission;
-import com.example.demo.service.UmsAdminService;
+import com.example.demo.model.PermissionModel;
+import com.example.demo.service.AdminService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -27,11 +26,10 @@ import java.util.List;
 
 /**
  * UmsAdminService实现类
- * Created by macro on 2018/4/26.
  */
 @Service
-public class UmsAdminServiceImpl implements UmsAdminService {
-    private static final Logger LOGGER = LoggerFactory.getLogger(UmsAdminServiceImpl.class);
+public class AdminServiceImpl implements AdminService {
+    private static final Logger LOGGER = LoggerFactory.getLogger(AdminServiceImpl.class);
     @Autowired
     private UserDetailsService userDetailsService;
     @Autowired
@@ -41,39 +39,25 @@ public class UmsAdminServiceImpl implements UmsAdminService {
     @Value("${jwt.tokenHead}")
     private String tokenHead;
     @Autowired
-    private UmsAdminMapper adminMapper;
+    private AdminMapper adminMapper;
     @Autowired
-    private UmsAdminRoleRelationMapper adminRoleRelationDao;
+    private AdminRoleRelationMapper adminRoleRelationMapper;
 
     @Override
-    public UmsAdmin getAdminByUsername(String username) {
-        UmsAdminExample example = new UmsAdminExample();
-        example.createCriteria().andUsernameEqualTo(username);
-        List<UmsAdmin> adminList = adminMapper.selectByExample(example);
-        if (adminList != null && adminList.size() > 0) {
-            return adminList.get(0);
-        }
-        return null;
-    }
-
-    @Override
-    public UmsAdmin register(UmsAdmin umsAdminParam) {
-        UmsAdmin umsAdmin = new UmsAdmin();
-        BeanUtils.copyProperties(umsAdminParam, umsAdmin);
-        umsAdmin.setCreateTime(new Date());
-        umsAdmin.setStatus(1);
-        //查询是否有相同用户名的用户
-        UmsAdminExample example = new UmsAdminExample();
-        example.createCriteria().andUsernameEqualTo(umsAdmin.getUsername());
-        List<UmsAdmin> umsAdminList = adminMapper.selectByExample(example);
-        if (umsAdminList.size() > 0) {
+    public AdminModel register(AdminModel adminModel) {
+        AdminModel admin = new AdminModel();
+        BeanUtils.copyProperties(adminModel, admin);
+        admin.setCreateTime(new Date());
+        admin.setStatus(1);
+        List<AdminModel> adminModelList = adminMapper.selectByExample(admin);
+        if (adminModelList.size() > 0) {
             return null;
         }
         //将密码进行加密操作
-        String encodePassword = passwordEncoder.encode(umsAdmin.getPassword());
-        umsAdmin.setPassword(encodePassword);
-        adminMapper.insert(umsAdmin);
-        return umsAdmin;
+        String encodePassword = passwordEncoder.encode(admin.getPassword());
+        admin.setPassword(encodePassword);
+        adminMapper.insert(admin);
+        return admin;
     }
 
     @Override
@@ -93,9 +77,20 @@ public class UmsAdminServiceImpl implements UmsAdminService {
         return token;
     }
 
+    @Override
+    public AdminModel getAdminByUsername(String username) {
+        List<AdminModel> adminlist = adminMapper.getAdminByUsername(username);
+//        UmsAdminExample example = new UmsAdminExample();
+//        example.createCriteria().andUsernameEqualTo(username);
+//        List<AdminModel> adminList = adminMapper.selectByExample(example);
+        if (adminlist != null && adminlist.size() > 0) {
+            return adminlist.get(0);
+        }
+        return null;
+    }
 
     @Override
-    public List<UmsPermission> getPermissionList(Long adminId) {
-        return adminRoleRelationDao.getPermissionList(adminId);
+    public List<PermissionModel> getPermissionList(Long adminId) {
+        return adminRoleRelationMapper.getPermissionList(adminId);
     }
 }

@@ -6,20 +6,18 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-@Api(value = "我是firstController")
+@Api(tags = "HellowContorller", description = "controller描述测试")
+//@Api(value = "controller描述测试")
 @RequestMapping(value = "/first")
 @RestController
 public class hellow {
     @GetMapping(value = "/hello")
     /* 方法注解 */
-    @ApiOperation(value = "我是hello方法", notes = "")
+    @ApiOperation(value = "方法描述测试", notes = "")
 
-    public String helloWord(){
+    public String helloWord() {
         var a = "aaa";
-        var b = a;
-        var obj = new myObj();
-        obj.setName(a);
-        return obj.getname();
+        return a;
     }
 
 }

@@ -1,6 +1,6 @@
 package com.example.demo.security;
 
-import com.example.demo.model.UserModel;
+import com.example.demo.model.AdminModel;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -9,14 +9,14 @@ import java.util.List;
 
 public class AdminUserDetails implements UserDetails {
 
-    private UserModel umsAdmin;
+    private AdminModel adminModel;
 //    private List<UmsResource> resourceList;
 //    public AdminUserDetails(UserModel umsAdmin,List<UmsResource> resourceList) {
 //        this.umsAdmin = umsAdmin;
 //        this.resourceList = resourceList;
 //    }
-    public AdminUserDetails(UserModel umsAdmin) {
-        this.umsAdmin = umsAdmin;
+    public AdminUserDetails(AdminModel adminModel) {
+        this.adminModel = adminModel;
     }
 
     @Override
@@ -26,13 +26,14 @@ public class AdminUserDetails implements UserDetails {
 
     @Override
     public String getPassword() {
-        return null;
+        return adminModel.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return null;
+        return adminModel.getUsername();
     }
+
 
     @Override
     public boolean isAccountNonExpired() {

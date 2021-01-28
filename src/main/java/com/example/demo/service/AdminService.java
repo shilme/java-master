@@ -1,7 +1,7 @@
 package com.example.demo.service;
 
-import com.example.demo.dao.UmsAdmin;
-import com.example.demo.model.UmsPermission;
+import com.example.demo.model.AdminModel;
+import com.example.demo.model.PermissionModel;
 
 import java.util.List;
 
@@ -9,16 +9,16 @@ import java.util.List;
  * 后台管理员Service
  * Created by macro on 2018/4/26.
  */
-public interface UmsAdminService {
+public interface AdminService {
     /**
      * 根据用户名获取后台管理员
      */
-    UmsAdmin getAdminByUsername(String username);
+    AdminModel getAdminByUsername(String username);
 
     /**
      * 注册功能
      */
-    UmsAdmin register(UmsAdmin umsAdminParam);
+    AdminModel register(AdminModel adminModel);
 
     /**
      * 登录功能
@@ -31,5 +31,5 @@ public interface UmsAdminService {
     /**
      * 获取用户所有权限（包括角色权限和+-权限）
      */
-    List<UmsPermission> getPermissionList(Long adminId);
+    List<PermissionModel> getPermissionList(Long adminId);
 }

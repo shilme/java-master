@@ -1,15 +1,21 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.UserModel;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@RequestMapping(value = "/user")
-@RestController
+@Controller
+@Api(tags = "UserContorller", description = "用户测试")
+@RequestMapping("/user")
+
+//@RequestMapping(value = "/user")
+//@RestController
 public class userContorller {
     @Autowired
     com.example.demo.service.userService userService;

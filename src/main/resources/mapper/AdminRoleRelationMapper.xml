@@ -8,6 +8,14 @@
     <!--注意上面的namespace一定要修改-->
     <!--以下是新增的方法-->
     <select id="getPermissionList" resultType="com.example.demo.model.PermissionModel">
-        select * from permission where id = #{adminId};
+        select d.*
+        from admin a
+        join admin_role_relation b
+        on a.id = b.admin_id
+        join role_permission_relation c
+        on b.role_id = c.role_id
+        join permission d
+        on d.id = c.permission_id
+        where a.id = #{adminId};
     </select>
 </mapper>

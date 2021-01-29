@@ -1,5 +1,6 @@
 package com.example.demo.swagger;
 
+import com.google.common.collect.Lists;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.ApiInfoBuilder;
@@ -68,16 +69,32 @@ public class SwaggerConfig {
 
     @Bean
     public Docket createRestApi(){
+
+    //        return new Docket(DocumentationType.SWAGGER_2)
+    //                .apiInfo(apiInfo())
+    //                .select()
+    //                //为当前包下controller生成API文档
+    //                .apis(RequestHandlerSelectors.basePackage("com.example.demo.controller"))
+    //                .paths(PathSelectors.any())
+    //                .build()
+    //                //添加登录认证
+    //                .securitySchemes(securitySchemes())
+    //                .securityContexts(securityContexts());
+
+        ParameterBuilder ticketPar = new ParameterBuilder();
+        List<Parameter> pars = new ArrayList<Parameter>();
+        ticketPar.name("Authorization").description("写Authorization参数")//Token 以及Authorization 为自定义的参数，session保存的名字是哪个就可以写成那个
+                .modelRef(new ModelRef("string")).parameterType("header")
+                .required(false).build(); //header中的ticket参数非必填，传空也可以
+        pars.add(ticketPar.build());    //根据每个方法名也知道当前方法在设置什么参数
+
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
                 .select()
-                //为当前包下controller生成API文档
-                .apis(RequestHandlerSelectors.basePackage("com.example.demo.controller"))
+                .apis(RequestHandlerSelectors.basePackage("com.example.demo"))
                 .paths(PathSelectors.any())
                 .build()
-                //添加登录认证
-                .securitySchemes(securitySchemes())
-                .securityContexts(securityContexts());
+                .globalOperationParameters(pars);
     }
 
     private ApiInfo apiInfo() {

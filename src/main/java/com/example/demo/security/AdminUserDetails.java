@@ -34,7 +34,6 @@ public class AdminUserDetails implements UserDetails {
         return adminModel.getUsername();
     }
 
-
     @Override
     public boolean isAccountNonExpired() {
         return false;

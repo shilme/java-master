@@ -1,6 +1,7 @@
 package com.example.demo.security;
 
 import com.example.demo.model.AdminModel;
+import com.example.demo.model.PermissionModel;
 import com.example.demo.model.UserModel;
 import com.example.demo.service.AdminService;
 import com.example.demo.service.userService;
@@ -94,7 +95,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             if (admin != null) {
 //                List<UmsPermission> permissionList = adminService.getPermissionList(admin.getId());
 //                return new AdminUserDetails(admin, permissionList);
-                return new AdminUserDetails(admin);
+                List<PermissionModel> permissionModelList = adminService.getPermissionList(admin.getId());
+                return new AdminUserDetails(admin,permissionModelList);
             }
             throw new UsernameNotFoundException("用户名或密码错误");
         };
